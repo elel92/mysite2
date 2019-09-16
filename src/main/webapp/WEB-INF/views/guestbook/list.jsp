@@ -19,7 +19,7 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
 		<div id="content">
 			<div id="guestbook">
-				<form action="<%=request.getContextPath() %>/user?a=insert" method="post">
+				<form action="<%=request.getContextPath() %>/guest?a=insert" method="post">
 					<table>
 						<tr>
 							<td>이름</td><td><input type="text" name="name"></td>
@@ -45,7 +45,7 @@
 								<td><%=count - index++ %></td>
 								<td><%=vo.getName() %></td>
 								<td><%=vo.getReg_date() %></td>
-								<td><a href="<%=request.getContextPath()%>/user?a=deleteform&no=<%=vo.getNo()%>">삭제</a></td>
+								<td><a href="<%=request.getContextPath()%>/guest?a=deleteform&no=<%=vo.getNo()%>">삭제</a></td>
 							</tr>
 							<tr>
 								<td colspan=4><%=vo.getContents().replaceAll("\n", "<br>")%></td>

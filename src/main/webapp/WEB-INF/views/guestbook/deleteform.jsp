@@ -14,13 +14,13 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
 		<div id="content">
 			<div id="guestbook" class="delete-form">
-				<form method="post" action="<%=request.getContextPath() %>/user?a=delete">
+				<form method="post" action="<%=request.getContextPath() %>/guest?a=delete">
 					<input type='hidden' name="no" value="<%=no %>">
 					<label>비밀번호</label>
 					<input type="password" name="password">
 					<input type="submit" value="확인">
 				</form>
-				<a href="<%=request.getContextPath() %>/user?a=guestbook">방명록 리스트</a>
+				<a href="<%=request.getContextPath() %>/guest?a=guestbook">방명록 리스트</a>
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
