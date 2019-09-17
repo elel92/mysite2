@@ -15,9 +15,8 @@
 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
 		<div id="content">
 			<div id="user">
-				<form id="join-form" name="updateform" method="post" action="<%=request.getContextPath() %>/user?no=<%=authUser.getNo()%>">
+				<form id="join-form" name="updateform" method="post" action="<%=request.getContextPath() %>/user">
 					<input type = 'hidden' name = 'a' value = 'update'>
-					<input type = 'hidden' name = 'email' value = '<%=authUser.getEmail() %>'>
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="<%=authUser.getName()%>">
 

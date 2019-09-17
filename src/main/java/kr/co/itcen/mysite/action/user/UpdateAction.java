@@ -16,15 +16,20 @@ public class UpdateAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String no_ = request.getParameter("no");
+		HttpSession session = request.getSession(true);
+		
+		UserVo pre_userVo = (UserVo)session.getAttribute("authUser");
 		String name = request.getParameter("name");
 		String gender = request.getParameter("gender");
-		String email = request.getParameter("email");
 		
-		int no = Integer.parseInt(no_);
-		UserVo userVo = new UserDao().update(no, name, email, gender);
+		new UserDao().update(pre_userVo.getNo(), name, gender);
 		
-		HttpSession session = request.getSession(true);
+		UserVo userVo = new UserVo();
+		userVo.setNo(pre_userVo.getNo());
+		userVo.setName(name);
+		userVo.setEmail(pre_userVo.getEmail());
+		userVo.setGender(gender);
+		
 		session.setAttribute("authUser", userVo);
 		
 		WebUtils.redirect(request, response, request.getContextPath());

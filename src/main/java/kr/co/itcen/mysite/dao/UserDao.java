@@ -119,11 +119,9 @@ public class UserDao {
 		return result;		
 	}
 	
-	public UserVo update(int no, String name, String email, String gender) {
+	public void update(int no, String name, String gender) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
-		UserVo result = null;
-		ResultSet rs = null;
 		
 		try {
 			connection = getConnection();
@@ -135,34 +133,15 @@ public class UserDao {
 			pstmt.setInt(3, no);
 			
 			pstmt.executeUpdate();
-			
-			sql = "select no, name, gender from user where email = ? and no = ?";
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1, email);
-			pstmt.setInt(2, no);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				String change_gender = rs.getString(3);
-				
-				result = new UserVo();
-				result.setNo(no);
-				result.setName(name);
-				result.setGender(change_gender);
-				result.setEmail(email);
-			}
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
 			try {
-				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
 				if(connection != null) connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		return result;
 	}
 }
