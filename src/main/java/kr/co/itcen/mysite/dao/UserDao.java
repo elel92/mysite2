@@ -119,18 +119,19 @@ public class UserDao {
 		return result;		
 	}
 	
-	public void update(int no, String name, String gender) {
+	public void update(int no, String name, String gender, String password) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			connection = getConnection();
 			
-			String sql = "update user set name = ?, gender = ? where no = ?";
+			String sql = "update user set name = ?, gender = ?, password = ? where no = ?";
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, gender);
-			pstmt.setInt(3, no);
+			pstmt.setString(3, password);
+			pstmt.setInt(4, no);
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
