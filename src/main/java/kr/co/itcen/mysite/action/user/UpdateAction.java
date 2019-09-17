@@ -12,22 +12,19 @@ import kr.co.itcen.mysite.vo.UserVo;
 import kr.co.itcen.web.WebUtils;
 import kr.co.itcen.web.mvc.Action;
 
-public class LoginAction implements Action  {
+public class UpdateAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String no_ = request.getParameter("no");
+		String name = request.getParameter("name");
+		String gender = request.getParameter("gender");
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
 		
-		UserVo userVo = new UserDao().get(email, password);
-		if(userVo == null) {
-			request.setAttribute("result", "fail");
-			WebUtils.forward(request, response, "/WEB-INF/views/user/loginform.jsp");
-			return;
-		}
+		int no = Integer.parseInt(no_);
+		UserVo userVo = new UserDao().update(no, name, email, gender);
 		
-		//인증처리(session 정리)
-		HttpSession session = request.getSession(true); //없으면 만들어서 줌
+		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", userVo);
 		
 		WebUtils.redirect(request, response, request.getContextPath());
