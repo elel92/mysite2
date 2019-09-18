@@ -14,12 +14,11 @@ public class DeleteAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String para_no = request.getParameter("no");
-		int no = Integer.parseInt(para_no);
 		String password = request.getParameter("password");
 		
+		int no = Integer.parseInt(para_no);
 		new GuestbookDao().set_delete(no, password);
 		
 		response.sendRedirect(request.getContextPath() + "/guest?a=guestbook");
 	}
-
 }

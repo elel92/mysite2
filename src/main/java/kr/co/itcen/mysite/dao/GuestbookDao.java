@@ -144,7 +144,7 @@ public class GuestbookDao {
 		try {
 			connection = getConnection();
 			
-			String sql = "select no, name, contents, reg_date from guestbook order by no asc";
+			String sql = "select no, name, contents, reg_date from guestbook order by no desc";
 			pstmt = connection.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();

@@ -22,7 +22,6 @@ public class UpdateAction implements Action {
 		String name = request.getParameter("name");
 		String gender = request.getParameter("gender");
 		String password = request.getParameter("password");
-		System.out.println(password);
 		new UserDao().update(pre_userVo.getNo(), name, gender, password);
 		
 		UserVo userVo = new UserVo();

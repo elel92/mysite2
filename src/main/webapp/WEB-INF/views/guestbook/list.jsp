@@ -1,25 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.List"%>
-<%@page import="kr.co.itcen.mysite.dao.GuestbookDao"%>
-<%@page import="kr.co.itcen.mysite.vo.GuestbookVo"%>
-
-<%
-	List<GuestbookVo> list = (List<GuestbookVo>)request.getAttribute("list");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<% pageContext.setAttribute("replace", "\n"); %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="<%=request.getContextPath() %>/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
 		<div id="content">
 			<div id="guestbook">
-				<form action="<%=request.getContextPath() %>/guest?a=insert" method="post">
+				<form action="${pageContext.servletContext.contextPath}/guest?a=insert" method="post">
 					<table>
 						<tr>
 							<td>이름</td><td><input type="text" name="name"></td>
@@ -36,21 +33,18 @@
 				<ul>
 					<li>
 						<table>
-						<%
-						int count = list.size();
-						int index = 0;
-						for(GuestbookVo vo : list) {
-						%>
+						<c:set var='count' value='${fn:length(list)}'></c:set>
+						<c:forEach items='${list}' var='li' varStatus="status">
 							<tr>
-								<td><%=count - index++ %></td>
-								<td><%=vo.getName() %></td>
-								<td><%=vo.getReg_date() %></td>
-								<td><a href="<%=request.getContextPath()%>/guest?a=deleteform&no=<%=vo.getNo()%>">삭제</a></td>
+								<td>${count - status.index}</td>
+								<td>${li.name}</td>
+								<td>${li.reg_date}</td>
+								<td><a href="${pageContext.servletContext.contextPath}/guest?a=deleteform&no=${li.no}">삭제</a></td>
 							</tr>
 							<tr>
-								<td colspan=4><%=vo.getContents().replaceAll("\n", "<br>")%></td>
+								<td colspan=4>${fn:replace(li.contents, replace, '<br>')}</td>
 							</tr>
-						<%} %>
+						</c:forEach>
 						</table>
 						<br>
 					</li>
