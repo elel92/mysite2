@@ -63,9 +63,9 @@ input#kwd	{
 }
 
 .board-form .tbl-ex td.label {
-	text-align:right;
-	font-weight:bold;
-	width:60px; 
+   text-align:left;
+   font-weight:bold;
+   width:60px; 
 }
 
 .board-form .tbl-ex input[ name='title' ] {

@@ -18,8 +18,14 @@ public class ListAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page_no_ = request.getParameter("page_no");
 		String kwd = request.getParameter("kwd");
+		String next_page_count_ = request.getParameter("next_page_count");
 		
 		int page_no = 0;
+		int next_page_count = 1;
+		
+		if(next_page_count_ != null) {
+			next_page_count = Integer.parseInt(next_page_count_);
+		}
 		
 		if(page_no_ != null) {
 			page_no = Integer.parseInt(page_no_);
@@ -41,6 +47,7 @@ public class ListAction implements Action {
 			request.setAttribute("page_list", page_list);
 			request.setAttribute("page_num", page_no+1);
 			request.setAttribute("list", list);
+			request.setAttribute("next_page_count", next_page_count);
 		}
 		
 		WebUtils.forward(request, response, "WEB-INF/views/board/list.jsp");
