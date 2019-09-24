@@ -18,12 +18,19 @@ public class SearchAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String kwd = request.getParameter("kwd");
 		String page_no_ = request.getParameter("page_no");
+		String next_page_count_ = request.getParameter("next_page_count");
+		
 		int page_no = 0;
+		int next_page_count = 1;
 		
 		if(page_no_ != null) {
 			page_no = Integer.parseInt(page_no_);
 		}
 		
-		WebUtils.redirect(request, response, request.getContextPath() + "/board?page_no="+page_no+"&kwd="+kwd);
+		if(next_page_count_ != null) {
+			next_page_count = Integer.parseInt(next_page_count_);
+		}
+		
+		WebUtils.redirect(request, response, request.getContextPath() + "/board?page_no="+page_no+"&kwd="+kwd+"&next_page_count="+next_page_count);
 	}
 }

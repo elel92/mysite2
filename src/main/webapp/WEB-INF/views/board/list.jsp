@@ -63,25 +63,29 @@
 							<c:when test="${kwd != null}">
 								<c:set var='search_page_count' value = '${fn:length(list)}'></c:set>
 								
-								<c:if test="${page_num > 1}">
-									<li><a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${page_num-2}&kwd=${kwd}">◀</a></li>
+								<c:if test="${page_num > 10}">
+									<li><a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${(next_page_count-2)*10}&kwd=${kwd}&next_page_count=${next_page_count-1}">◀</a></li>
 								</c:if>
+								
 								<c:forEach var='c'  begin ='1' end='${(search_page_count-1)/10+1}' step='1'>
-									<c:choose>
-										<c:when test="${page_num == c}">
-											<li class="selected">
-												<a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${c-1}&kwd=${kwd}">${c}</a>
-											</li>
-										</c:when>
-										<c:otherwise>
-											<li>
-												<a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${c-1}&kwd=${kwd}">${c}</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
+									<c:if test="${next_page_count*10 - c < 10 && next_page_count*10 - c >= 0}">
+										<c:choose>
+											<c:when test="${page_num == c}">
+												<li class="selected">
+													<a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${c-1}&kwd=${kwd}&next_page_count=${next_page_count}">${c}</a>
+												</li>
+											</c:when>
+											<c:otherwise>
+												<li>
+													<a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${c-1}&kwd=${kwd}&next_page_count=${next_page_count}">${c}</a>
+												</li>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
 								</c:forEach>
-								<c:if test="${page_num <= (search_page_count-1)/10}">
-									<li><a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${page_num}&kwd=${kwd}">▶</a></li>
+								
+								<c:if test="${page_num <= (search_page_count-1)/10 && (search_page_count-1)/10 > 10}">
+									<li><a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${next_page_count*10}&kwd=${kwd}&next_page_count=${next_page_count+1}">▶</a></li>
 								</c:if>
 							</c:when>
 							
@@ -107,9 +111,9 @@
 											</c:otherwise>
 										</c:choose>
 									</c:if>
-									
 								</c:forEach>
-								<c:if test="${page_num <= (page_count-1)/10}">
+								
+								<c:if test="${page_num <= (page_count-1)/10 && (page_count-1)/10 > 10}">
 									<li><a href="${pageContext.servletContext.contextPath}/board?page_no=${next_page_count*10}&next_page_count=${next_page_count+1}">▶</a></li>
 								</c:if>
 							</c:otherwise>

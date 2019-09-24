@@ -40,6 +40,7 @@ public class ListAction implements Action {
 			request.setAttribute("page_list", page_list);
 			request.setAttribute("page_num", page_no+1);
 			request.setAttribute("list", list);
+			request.setAttribute("next_page_count", next_page_count);
 		} else {
 			List<BoardVo> page_list = new BoardDao().limit_getList(page_no);
 			List<BoardVo> list = new BoardDao().getList();
