@@ -36,12 +36,29 @@
 								<c:when test="${li.depth > 0}">
 									<td class="label" style="padding-left:${30*li.depth-20}px;text-align:left">
 										<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png'/>
-										<a href="${pageContext.servletContext.contextPath}/board?a=view&no=${li.no}&user_no=${li.user_no}">${li.title}</a>
+										<c:choose>
+											<c:when test="${li.status == 'Y'}">
+												삭제된 게시글입니다.
+											</c:when>
+												
+											<c:otherwise>
+												<a href="${pageContext.servletContext.contextPath}/board?a=view&no=${li.no}&user_no=${li.user_no}">${li.title}</a>
+											</c:otherwise>
+										</c:choose>
 									</td>
 								</c:when>
+								
 								<c:otherwise>
 									<td class="label" style="text-align:left">
-										<a href="${pageContext.servletContext.contextPath}/board?a=view&no=${li.no}&user_no=${li.user_no}">${li.title}</a>
+										<c:choose>
+											<c:when test="${li.status == 'Y'}">
+												삭제된 게시글입니다.
+											</c:when>
+											
+											<c:otherwise>
+												<a href="${pageContext.servletContext.contextPath}/board?a=view&no=${li.no}&user_no=${li.user_no}">${li.title}</a>
+											</c:otherwise>
+										</c:choose>
 									</td>
 								</c:otherwise>
 							</c:choose>
@@ -84,7 +101,7 @@
 									</c:if>
 								</c:forEach>
 								
-								<c:if test="${page_num <= (search_page_count-1)/10 && (search_page_count-1)/10 > 10}">
+								<c:if test="${next_page_count < ((search_page_count-1)/10+1)/10}">
 									<li><a href="${pageContext.servletContext.contextPath}/board?a=search&page_no=${next_page_count*10}&kwd=${kwd}&next_page_count=${next_page_count+1}">▶</a></li>
 								</c:if>
 							</c:when>
@@ -113,7 +130,7 @@
 									</c:if>
 								</c:forEach>
 								
-								<c:if test="${page_num <= (page_count-1)/10 && (page_count-1)/10 > 10}">
+								<c:if test="${next_page_count < ((page_count-1)/10+1)/10}">
 									<li><a href="${pageContext.servletContext.contextPath}/board?page_no=${next_page_count*10}&next_page_count=${next_page_count+1}">▶</a></li>
 								</c:if>
 							</c:otherwise>

@@ -320,7 +320,7 @@ public class BoardDao {
 		try {
 			connection = getConnection();
 			
-			String sql = "select b.no, b.title, b.contents, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.status, b.user_no, u.name from board b, user u where b.user_no = u.no and b.status = 'N' and (b.title like ? or b.contents like ?) order by b.g_no desc, b.depth, b.o_no asc";
+			String sql = "select b.no, b.title, b.contents, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.status, b.user_no, u.name from board b, user u where b.user_no = u.no and (b.title like ? or b.contents like ?) order by b.g_no desc, b.depth, b.o_no asc";
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + kwd + "%");
 			pstmt.setString(2, "%" + kwd + "%");
@@ -381,7 +381,7 @@ public class BoardDao {
 		try {
 			connection = getConnection();
 			
-			String sql = "select b.no, b.title, b.contents, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.status, b.user_no, u.name from board b, user u where b.user_no = u.no and b.status = 'N' and (b.title like ? or b.contents like ?) order by b.g_no desc, b.depth, b.o_no asc limit ?, 10";
+			String sql = "select b.no, b.title, b.contents, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.status, b.user_no, u.name from board b, user u where b.user_no = u.no and (b.title like ? or b.contents like ?) order by b.g_no desc, b.depth, b.o_no asc limit ?, 10";
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + kwd + "%");
 			pstmt.setString(2, "%" + kwd + "%");
@@ -444,7 +444,7 @@ public class BoardDao {
 		try {
 			connection = getConnection();
 			
-			String sql = "select b.no, b.title, b.contents, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.status, b.user_no, u.name from board b, user u where b.user_no = u.no and b.status = 'N' order by b.g_no desc, b.o_no asc";
+			String sql = "select b.no, b.title, b.contents, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.status, b.user_no, u.name from board b, user u where b.user_no = u.no order by b.g_no desc, b.o_no asc";
 			pstmt = connection.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -503,7 +503,7 @@ public class BoardDao {
 		try {
 			connection = getConnection();
 			
-			String sql = "select b.no, b.title, b.contents, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.status, b.user_no, u.name from board b, user u where b.user_no = u.no and b.status = 'N' order by b.g_no desc, b.o_no asc limit ?, 10";
+			String sql = "select b.no, b.title, b.contents, b.hit, b.reg_date, b.g_no, b.o_no, b.depth, b.status, b.user_no, u.name from board b, user u where b.user_no = u.no order by b.g_no desc, b.o_no asc limit ?, 10";
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setInt(1, page_no*10);
 			
